@@ -16,19 +16,12 @@ class company extends Model
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'name',
-        'logo'
+        'leave_reason',
     ];
 
     public function users(){
-        return $this->belongsToMany(User::class);
-    }
-
-    public function teams(){
-        return $this->hasMany(Team::class);
-    }
-
-    public function roles(){
-        return $this->hasMany(Role::class);
+        return $this->belongsTo(User::class);
     }
 }
