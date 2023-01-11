@@ -16,8 +16,9 @@ class company extends Model
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'name',
-        'logo'
+        'leave_reason',
     ];
 
     public function users(){
