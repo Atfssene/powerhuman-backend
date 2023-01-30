@@ -14,59 +14,6 @@ use App\Http\Requests\UpdateRoleRequest;
 class RoleController extends Controller
 {
 
-    public function create(CreateRoleRequest $request){
-        
-        try{
-            
-            //upload icon
-            if($request->hasFile('icon')){
-                $path=$request->file('icon')->store('public/icons');
-            }
-            
-            //create role
-            $role=Role::create([
-                'name'=>$request->name,
-                'company_id'=>$request->company_id
-            ]);
-
-            if($role){
-                throw new Exception('Role not created');
-            }
-            
-            return ResponseFormatter::success($role,'Role Created');
-        
-        }catch(Exception $e){
-            return ResponseFormatter::error($e->getMessage(),500);
-        }
-
-    }
-
-    public function update(UpdateRoleRequest $request,$id){
-        try{
-            //get role
-            $role=Role::find($id);
-
-            //check if role exists
-            if(!$role){
-                throw new Exception('Role not Found');
-            }
-
-            //upload logo
-            if($request->hasFile('icon')){
-                $path=$request->file('icon')->store('public/icons');
-            }
-
-            //update role
-            $role->update([
-                'name'=>$request->name,
-                'company_id'=>$request->company_id
-            ]);
-
-        }catch(Exception $e){
-            return ResponseFormatter::error($e->getMessage(),500);
-        }
-    }
-
     public function fetch(Request $request){
         $id = $request->input('id');
         $name = $request->input('name');
@@ -103,22 +50,65 @@ class RoleController extends Controller
         );
     }
 
+    public function create(CreateRoleRequest $request){
+        try {
+            // Create role
+            $role = Role::create([
+                'name' => $request->name,
+                'company_id' => $request->company_id,
+            ]);
 
-    public function destroy($id){
-        try{
-
-            $role=Role::find($id);
-
-            if(!$role){
-                throw new Exception('Role not Found');
+            if (!$role) {
+                throw new Exception('Role not created');
             }
 
-            $role->delete();
-
-            return ResponseFormatter::success('Role Deleted');
-        } catch(Exception $e){
-            return ResponseFormatter::error($e->getMessage(),500);
+            return ResponseFormatter::success($role, 'Role created');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 500);
         }
     }
 
+    public function update(UpdateRoleRequest $request, $id){
+
+        try {
+            // Get role
+            $role = Role::find($id);
+
+            // Check if role exists
+            if (!$role) {
+                throw new Exception('Role not found');
+            }
+
+            // Update role
+            $role->update([
+                'name' => $request->name,
+                'company_id' => $request->company_id,
+            ]);
+
+            return ResponseFormatter::success($role, 'Role updated');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 500);
+        }
+    }
+
+    public function destroy($id){
+        try {
+            // Get role
+            $role = Role::find($id);
+
+            // TODO: Check if role is owned by user
+
+            // Check if role exists
+            if (!$role) {
+                throw new Exception('Role not found');
+            }
+
+            // Delete role
+            $role->delete();
+
+            return ResponseFormatter::success('Role deleted');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 500);
+        }
+    }
 }

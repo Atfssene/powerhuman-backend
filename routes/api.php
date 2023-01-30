@@ -9,6 +9,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\ResponsibilityController;
+use Illuminate\Support\Facades\Password;
 
 /*
 |--------------------------------------------------------------------------

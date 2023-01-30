@@ -27,7 +27,6 @@ class CreateCompanyRequest extends FormRequest
         return [
             'name'=>'required|string|max:255',
             'logo'=>'nullable|image|mimes:jpeg,png,gif,svg|max:2048',
-
         ];
     }
 }

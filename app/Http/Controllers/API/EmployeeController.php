@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 
-class EmployeeController extends Controller
-{
+class EmployeeController extends Controller{
+
     public function fetch(Request $request){
 
         $id = $request->input('id');
@@ -78,7 +78,6 @@ class EmployeeController extends Controller
     }
 
     public function create(CreateEmployeeRequest $request){
-        
         try {
             // Upload photos
             if ($request->hasFile('photo')) {
@@ -142,7 +141,6 @@ class EmployeeController extends Controller
     }
 
     public function destroy($id){
-        
         try {
             // Get employee
             $employee = Employee::find($id);
